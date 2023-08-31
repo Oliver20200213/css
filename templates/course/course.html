@@ -1,0 +1,30 @@
+{{template "base.html" .}}
+
+
+{{define "content"}}
+<p><a href="/course/add" class="btn btn-primary">添加课程</a></p>
+<table class="table table-bordered">
+    <tr>
+        <th>序号</th>
+        <th>课程名称</th>
+        <th>学分</th>
+        <th>周期</th>
+        <th>教师</th>
+        <th>编辑</th>
+        <th>删除</th>
+    </tr>
+    {{range $index,$course := .courses}}
+    <tr>
+        <td>{{Add $index 1}}</td>
+        <td>{{$course.Name}}</td>
+        <td>{{$course.Credit}}</td>
+        <td>{{$course.Period}}</td>
+        <td>{{$course.Teacher.Name}}</td>
+        <td><a href="/course/edit/{{$course.ID}}"><span class="glyphicon glyphicon-edit"></span></a></td>
+        <td><a href="/course/delete/{{$course.ID}}"><span class="glyphicon glyphicon-trash" ></span></a></td>
+    </tr>
+    {{end}}
+</table>
+
+
+{{end}}

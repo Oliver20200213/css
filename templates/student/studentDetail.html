@@ -1,0 +1,71 @@
+{{template "base.html" .}}
+
+
+{{define "content"}}
+<!-- Nav tabs -->
+<ul class="nav nav-tabs" role="tablist">
+    <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab"
+                                              data-toggle="tab">个人详情信息</a></li>
+    <li role="presentation"><a href="#courses" aria-controls="courses" role="tab" data-toggle="tab">查看已经选择课程</a></li>
+</ul>
+
+<!-- Tab panes -->
+<div class="tab-content">
+    <div role="tabpanel" class="tab-pane active" id="home">
+
+        <table class="table table-bordered">
+            　
+            <tr class="danger">
+                <th colspan="7">个人信息</th>
+            </tr>
+            <tr>
+                <th>学号</th>
+                <th>姓名</th>
+                <th>性别</th>
+                <th>生日</th>
+                <th>班级</th>
+                <th>手机号</th>
+                <th>备注</th>
+            </tr>
+            <tr>
+                <td>{{.student.Sno}}</td>
+                <td>{{.student.Name}}</td>
+                <td>{{.student.Gender}}</td>
+                <td>{{.student.Birth.Format `2006/01/02`}}</td>
+                <td>{{.student.Class.Name}}</td>
+                <td>{{.student.Tel}}</td>
+                <td>{{.student.Remark}}</td>
+            </tr>
+        </table>
+    </div>
+    <div role="tabpanel" class="tab-pane" id="courses">
+        <table class="table table-bordered">
+            <tr class="info">
+                <th colspan="5">已选课程【<a href="/student/{{.student.Sno}}/selectCourse/">继续选课</a>】</th>
+            </tr>
+            <tr>
+                <th>序号</th>
+                <th>课程名</th>
+                <th>学分</th>
+                <th>周期</th>
+                <th>讲师</th>
+            </tr>
+
+            {{range $index,$course := .student.Courses}}
+            <tr>
+                <td>{{Add $index 1}}</td>
+                <td>{{$course.Name}}</td>
+                <td>{{$course.Credit}}</td>
+                <td>{{$course.Period}}</td>
+                <td>{{$course.Teacher.Name}}</td>
+            </tr>
+            {{end}}
+        </table>
+    </div>
+
+</div>
+
+</div>
+
+
+{{end}}

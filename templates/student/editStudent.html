@@ -1,0 +1,59 @@
+{{template "base.html" .}}
+
+{{define "content"}}
+
+<form action="" method="post">
+    <div class="form-group">
+        <label for="sno">学号</label>
+        <input type="text" id="sno" name="sno" placeholder="学号" value="{{.student.Sno}}" class="form-control">
+    </div>
+    <div class="form-group">
+        <label for="name">姓名</label>
+        <input type="text" id="name" name="name" placeholder="姓名" value="{{.student.Name}}" class="form-control">
+    </div>
+
+    <div class="form-group">
+        <label for="sno">密码</label>
+        <input type="password" id="pwd" name="pwd" placeholder="密码" value="{{.student.User.Pwd}}" class="form-control">
+    </div>
+
+    <div class="form-group">
+        <label for="gender">性别</label>
+        <select name="gender" id="gender">
+            {{ if eq .student.Gender 1}}
+            <option selected value="1">男</option>
+            <option value="0">女</option>
+            {{else}}
+            <option value="1">男</option>
+            <option selected value="0">女</option>
+            {{end}}
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="birth">生日</label>
+        <input type="date" id="birth" name="birth" placeholder="生日" value="{{.student.Birth.Format `2006-01-02`}}" class="form-control">
+    </div>
+
+    <div class="form-group">
+        <label for="class">班级</label>
+        <select name="class_id" id="class" class="form-control">
+            {{$updateStudentClassID := .student.ClassID}}
+            {{range $i,$class := .classes}}
+            {{if eq $updateStudentClassID $class.ID}}
+            <option selected value="{{$class.ID}}">{{$class.Name}}</option>
+            {{else}}
+            <option value="{{$class.ID}}">{{$class.Name}}</option>
+            {{end}}
+            {{end}}
+        </select>
+    </div>
+
+    <div class="form-group">
+        <input type="submit" class="btn btn-primary pull-right">
+
+    </div>
+
+
+
+</form>
+{{end}}

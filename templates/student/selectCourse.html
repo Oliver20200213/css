@@ -1,0 +1,40 @@
+{{template "base.html" .}}
+
+{{define "content"}}
+<form action="" method="post">
+    <table class="table table-bordered">
+        <tr class="success">
+            <th colspan="6">正在选课</th>
+        </tr>
+        <tr>
+            <th>选择</th>
+            <th>序号</th>
+            <th>课程名称</th>
+            <th>学分</th>
+            <th>周期</th>
+            <th>讲师</th>
+        </tr>
+        {{ $cc := .chooseCourse}}
+        {{ $sno := .student.Sno}}
+        {{ range $index,$course := .courses}}
+        <tr>
+            <td>
+                {{if In $course.ID $cc}}
+                <a href="/student/{{$sno}}/cancelCourse/{{$course.ID}}">【已选】取消</a>
+                {{else}}
+                <input type="checkbox" name="courses" value="{{$course.ID}}">
+                {{end}}
+            </td>
+            <td>{{Add $index 1}}</td>
+            <td>{{$course.Name}}</td>
+            <td>{{$course.Credit}}</td>
+            <td>{{$course.Period}}</td>
+            <td>{{$course.Teacher.Name}}</td>
+        </tr>
+
+        {{end}}
+    </table>
+    <button class="btn btn-primary pull-right" type="submit">提交选中课程</button>
+</form>
+
+{{end}}
